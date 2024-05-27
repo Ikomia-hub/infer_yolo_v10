@@ -173,7 +173,7 @@ class InferYoloV10Factory(dataprocess.CTaskFactory):
         self.info.authors = "Ao Wang, H. Chen, L. Liu, K. Chen, Z. Lin, J. Han, G. Ding"
         self.info.article = "YOLOv10: Real-Time End-to-End Object Detection"
         self.info.journal = "arXiv"
-        self.info.year = 2021
+        self.info.year = 2024
         self.info.license = "AGPL-3.0"
         # URL of documentation
         self.info.documentation_link = "https://arxiv.org/abs/2405.14458"
