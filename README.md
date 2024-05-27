@@ -86,7 +86,7 @@ wf = Workflow()
 algo = wf.add_task(name="infer_yolo_v10", auto_connect=True)
 
 algo.set_parameters({
-    "model_name": "yolov8m",
+    "model_name": "yolov10m",
     "conf_thres": "0.5",
     "input_size": "640",
     "iou_thres": "0.5",
