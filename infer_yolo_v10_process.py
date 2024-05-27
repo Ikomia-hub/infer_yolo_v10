@@ -100,13 +100,16 @@ class InferYoloV10(dataprocess.CObjectDetectionTask):
                 "cuda") if param.cuda and torch.cuda.is_available() else torch.device("cpu")
             self.half = True if param.cuda and torch.cuda.is_available() else False
 
-            model_weights = os.path.join(
-                    str(self.model_folder), f'{param.model_name}.pt')
-            if not os.path.isfile(model_weights):
-                url = f'https://github.com/{self.repo}/releases/download/{self.version}/{param.model_name}.pt'
-                download(url=url, dir=self.model_folder, unzip=True)
+            if param.model_weight_file:
+                        self.model = YOLOv10(param.model_weight_file, task='detect')
+            else:
+                model_weights = os.path.join(
+                        str(self.model_folder), f'{param.model_name}.pt')
+                if not os.path.isfile(model_weights):
+                    url = f'https://github.com/{self.repo}/releases/download/{self.version}/{param.model_name}.pt'
+                    download(url=url, dir=self.model_folder, unzip=True)
 
-            self.model = YOLOv10(model_weights, task='detect')
+                self.model = YOLOv10(model_weights, task='detect')
 
             param.update = False
 
