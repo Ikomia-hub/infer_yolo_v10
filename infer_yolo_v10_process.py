@@ -2,7 +2,7 @@ import copy
 import torch
 import os
 from ikomia import core, dataprocess, utils
-from ultralytics import YOLOv10
+from ultralytics import YOLO
 from ultralytics import download
 
 # --------------------
@@ -100,14 +100,14 @@ class InferYoloV10(dataprocess.CObjectDetectionTask):
             self.half = True if param.cuda and torch.cuda.is_available() else False
 
             if param.model_weight_file:
-                self.model = YOLOv10(param.model_weight_file, task='detect')
+                self.model = YOLO(param.model_weight_file, task='detect')
             else:
                 model_weights = os.path.join(
                         str(self.model_folder), f'{param.model_name}.pt')
                 if not os.path.isfile(model_weights):
                     url = f'https://github.com/{self.repo}/releases/download/{self.version}/{param.model_name}.pt'
                     download(url=url, dir=self.model_folder, unzip=True)
-                self.model = YOLOv10(model_weights, task='detect')
+                self.model = YOLO(model_weights, task='detect')
 
             param.update = False
 
@@ -166,7 +166,7 @@ class InferYoloV10Factory(dataprocess.CTaskFactory):
         self.info.short_description = "Run inference with YOLOv10 models"
         # relative path -> as displayed in Ikomia Studio algorithm tree
         self.info.path = "Plugins/Python/Detection"
-        self.info.version = "1.0.0"
+        self.info.version = "1.0.1"
         self.info.icon_path = "images/icon.png"
         self.info.authors = "Ao Wang, H. Chen, L. Liu, K. Chen, Z. Lin, J. Han, G. Ding"
         self.info.article = "YOLOv10: Real-Time End-to-End Object Detection"
